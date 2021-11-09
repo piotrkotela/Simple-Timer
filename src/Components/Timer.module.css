@@ -1,0 +1,32 @@
+.timer {
+    height: 530px;
+    width: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.timerMain {
+    margin-bottom: 3rem;
+}
+
+.buttons button {
+    border:none;
+    padding: 1rem;
+    border-radius: 12px;
+    margin: 0.5rem;
+    background-color: rgb(243, 242, 242);
+}
+
+.buttons button:hover {
+    background-color: rgb(219, 219, 219);
+    transition: 0.3s;
+}
+
+.scramble {
+    font-size: 1rem;
+    width: 75%;
+    margin-top: 2rem;
+    text-align: center;
+}

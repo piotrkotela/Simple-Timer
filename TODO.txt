@@ -1,0 +1,21 @@
+A. ulepsz timer
+    1. dodaj funkcję 'show last scramble', najlepiej w local storage
+    2. ulepsz logikę, dodaj komunikaty 
+    3. usuń efekt zmieniania się wielkości timera
+    4. dodaj opcje WCA timer(opcja opcjonalna)
+    (DONE) 5. napisz scrambler dla 2x2x2
+
+B. ulepsz sekcję stats
+    1. dodaj best/worst avg5,12,100
+    2. dodaj opcje usuwania pojedyńczych czasów, albo zmienianie iich na dnf
+ 
+(DONE) C. dodaj sesje
+
+D. dodaj wykres chart.js
+    1. będzie można go schować
+
+E. popracuj nad designem
+    1. responsywny
+    2. może jakoś nazwij ten timer? Logo?
+
+F. dodaj system logowania
