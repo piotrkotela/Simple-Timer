@@ -1,4 +1,5 @@
 // this function converts miliseconds to formatted time hh:mm:ss.ms
+// very complicated 
 
 const msecToTime = (ms) => {
   const hours = Math.floor((ms / (3600 * 1000)) % 3600);

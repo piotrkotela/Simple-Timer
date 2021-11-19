@@ -19,7 +19,7 @@ function App() {
   const [mode, setMode] = useState("3x3x3");
 
   const addTimeHandler = (time) => {
-    // saving to localStorage
+    // managing localStorage
     let existing = localStorage.getItem(session);
     existing = existing ? existing.split(",") : [];
     existing.push(time);
