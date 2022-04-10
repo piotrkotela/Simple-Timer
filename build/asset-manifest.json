@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/piotrkotela/Simple-Timer/static/css/main.367a47d1.chunk.css",
-    "main.js": "/piotrkotela/Simple-Timer/static/js/main.f5b6068b.chunk.js",
-    "main.js.map": "/piotrkotela/Simple-Timer/static/js/main.f5b6068b.chunk.js.map",
+    "main.js": "/piotrkotela/Simple-Timer/static/js/main.9855cd27.chunk.js",
+    "main.js.map": "/piotrkotela/Simple-Timer/static/js/main.9855cd27.chunk.js.map",
     "runtime-main.js": "/piotrkotela/Simple-Timer/static/js/runtime-main.d7ce1074.js",
     "runtime-main.js.map": "/piotrkotela/Simple-Timer/static/js/runtime-main.d7ce1074.js.map",
-    "static/js/2.1f3f2c6f.chunk.js": "/piotrkotela/Simple-Timer/static/js/2.1f3f2c6f.chunk.js",
-    "static/js/2.1f3f2c6f.chunk.js.map": "/piotrkotela/Simple-Timer/static/js/2.1f3f2c6f.chunk.js.map",
+    "static/js/2.d2aed905.chunk.js": "/piotrkotela/Simple-Timer/static/js/2.d2aed905.chunk.js",
+    "static/js/2.d2aed905.chunk.js.map": "/piotrkotela/Simple-Timer/static/js/2.d2aed905.chunk.js.map",
     "index.html": "/piotrkotela/Simple-Timer/index.html",
     "static/css/main.367a47d1.chunk.css.map": "/piotrkotela/Simple-Timer/static/css/main.367a47d1.chunk.css.map",
-    "static/js/2.1f3f2c6f.chunk.js.LICENSE.txt": "/piotrkotela/Simple-Timer/static/js/2.1f3f2c6f.chunk.js.LICENSE.txt"
+    "static/js/2.d2aed905.chunk.js.LICENSE.txt": "/piotrkotela/Simple-Timer/static/js/2.d2aed905.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.d7ce1074.js",
-    "static/js/2.1f3f2c6f.chunk.js",
+    "static/js/2.d2aed905.chunk.js",
     "static/css/main.367a47d1.chunk.css",
-    "static/js/main.f5b6068b.chunk.js"
+    "static/js/main.9855cd27.chunk.js"
   ]
 }
