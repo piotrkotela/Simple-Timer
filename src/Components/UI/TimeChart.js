@@ -29,7 +29,6 @@ const TimeChart = (props) => {
             return msecToTime(value);
           }
         },
-        reverse: true,
         title: {
           display: true,
           text: "Solve time",

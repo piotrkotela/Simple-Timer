@@ -6,6 +6,7 @@ import CustomSelect from "./Components/Header/CustomSelect";
 import TimeChart from "./Components/UI/TimeChart";
 import msecToTime from "./Algo/MsecToTime";
 import Logo from "./Resources/logo";
+import Card from "./Components/UI/Card";
 
 const sessionOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const modeOptions = ['3x3x3','2x2x2'];
@@ -74,9 +75,12 @@ function App() {
         <Timer addTime={addTimeHandler} mode={mode} />
         <Stats times={existingTimes} removeAllTimes={removeAllTimes} />
       </div>
-      <div className={classes.TimeChart}>
+      { times.length < 3 ? <Card className={classes.TimeChartDisabled}>You need at least 3 solves to see the chart!</Card> :
+        <div className={classes.TimeChart}>
         <TimeChart times={existingTimes} />
       </div>
+      }
+      
     </main>
   );
 }
