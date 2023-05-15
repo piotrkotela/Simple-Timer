@@ -1,0 +1,8 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.sessionSelect {
+    width: 100px;
+}
