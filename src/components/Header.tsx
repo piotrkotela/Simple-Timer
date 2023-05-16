@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   InputLabel,
   MenuItem,
@@ -23,10 +24,11 @@ const Header = ({
 }: HeaderProps) => {
   const modes = ["3x3x3", "2x2x2"];
   return (
-    <div className={css.headerContainer}>
+    <Box sx={{display: "flex", gap: 5, width: "fit-content"}}>
       <FormControl className={css.sessionSelect}>
         <InputLabel id="session">Session</InputLabel>
         <Select
+          tabIndex={-1}
           labelId="session"
           value={timerSessionValue}
           label="Session"
@@ -52,7 +54,7 @@ const Header = ({
           ))}
         </Select>
       </FormControl>
-    </div>
+    </Box>
   );
 };
 

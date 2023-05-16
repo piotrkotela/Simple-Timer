@@ -1,27 +1,31 @@
 import { useState, useEffect } from "react";
 import formatTime from "../helpers/formatTime";
-
+import Typography from "@mui/material/Typography";
+import { Card } from "@mui/material";
+import css from './Timer.module.css';
 
 interface TimerProps {
-  setTimes: Function
+  setTimes: Function;
+  currentAo5?: string;
+  currentAo12?: string;
 }
 
-const Timer = ({setTimes}: TimerProps) => {
+const Timer = ({ setTimes, currentAo5, currentAo12 }: TimerProps) => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerValue, setTimerValue] = useState(0);
 
   useEffect(() => {
-    let intervalId: ReturnType<typeof setInterval> | undefined = undefined
+    let intervalId: ReturnType<typeof setInterval> | undefined = undefined;
 
     if (timerStarted) {
-      setTimerValue(0)
+      setTimerValue(0);
       intervalId = setInterval(() => {
         setTimerValue((prevValue) => prevValue + 10);
       }, 10);
     }
 
     if (!timerStarted && timerValue > 0) {
-      setTimes((prevTimes: any) => [...prevTimes, formatTime(timerValue)]);
+      setTimes((prevTimes: any) => [formatTime(timerValue), ...prevTimes]);
     }
 
     return () => {
@@ -30,7 +34,7 @@ const Timer = ({setTimes}: TimerProps) => {
   }, [timerStarted]);
 
   const handleKeyUp = () => {
-    setTimerStarted((prevState) => !prevState)
+    setTimerStarted((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -41,10 +45,17 @@ const Timer = ({setTimes}: TimerProps) => {
   }, []);
 
   return (
-    <>
-
-      <h1>{formatTime(timerValue)}</h1>
-    </>
+    <Card className={css.timerCard}>
+      <Typography variant="h1" component="h2">
+        {formatTime(timerValue)}
+      </Typography>
+      <Typography variant="h4" component="h2">
+        {currentAo5 ? `ao5: ${currentAo5}` : "ao5: -"}
+      </Typography>
+      <Typography variant="h4" component="h2">
+      {currentAo12 ? `ao12: ${currentAo12}` : "ao12: -"}
+      </Typography>
+    </Card>
   );
 };
 

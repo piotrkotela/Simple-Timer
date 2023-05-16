@@ -1,57 +1,53 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import css from './Stats.module.css';
+import { avgOfLastNums } from "../helpers/statsAlgo";
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
-) {
-  return { name, calories, fat, carbs, protein };
+
+interface StatsTableProps {
+  times: string[];
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-export default function DenseTable() {
+const StatsTable = ({ times }: StatsTableProps) => {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+    <TableContainer className={css.table}  component={Paper}>
+      <Table sx={{ minWidth: 300 }} stickyHeader size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>No.</TableCell>
-            <TableCell align="right">Time</TableCell>
-            <TableCell align="right">ao5</TableCell>
-            <TableCell align="right">ao12</TableCell>
+            <TableCell width={20}>No.</TableCell>
+            <TableCell width={20}>Time</TableCell>
+            <TableCell width={20}>ao5</TableCell>
+            <TableCell width={20}>ao12</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {times.map((time, idx) => (
             <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              key={idx}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {times.length - idx}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell component="th" scope="row">
+                {time}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {times.length < 5 ? "-" : avgOfLastNums(times, 5)}
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {times.length < 5 ? "-" : avgOfLastNums(times, 12)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+
+export default StatsTable;

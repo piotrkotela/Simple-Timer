@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import Timer from "./components/Timer";
-import { SelectChangeEvent } from "@mui/material";
+import { Box, Card, SelectChangeEvent, Typography } from "@mui/material";
 // @ts-ignore
-import ScrambleGenerator from './helpers/ScrambleGenerator.js'  
+import ScrambleGenerator from "./helpers/ScrambleGenerator.js";
 import Stats from "./components/Stats.js";
+import { avgOfLastNums } from "./helpers/statsAlgo.js";
 
 function App() {
   const [times, setTimes] = useState<string[]>([]);
@@ -20,19 +21,31 @@ function App() {
   };
 
   return (
-    <div style={{ width: 800, margin: "0 auto", backgroundColor: "#eee" }}>
+    <Box
+      sx={{
+        margin: "0 auto",
+        width: "800px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
+    >
       <Header
         timerSessionValue={timerSession}
         modeValue={mode}
         sessionSelectHandler={handleSetTimerSession}
         modeSelectHandler={handleSetMode}
       />
-      <h1>Scramble: {ScrambleGenerator[mode]()}</h1>
-      <Timer setTimes={setTimes} />
-      {times.toString()}
-      <Stats />
-
-    </div>
+      <Card style={{ padding: 20, width: "fit-content" }}>
+        <Typography>{ScrambleGenerator[mode]()}</Typography>
+      </Card>
+      <Timer
+        setTimes={setTimes}
+        currentAo5={avgOfLastNums(times, 5)}
+        currentAo12={avgOfLastNums(times, 12)}
+      />
+      <Stats times={times} />
+    </Box>
   );
 }
 
