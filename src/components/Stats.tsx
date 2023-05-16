@@ -7,21 +7,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import css from "./Stats.module.css";
 import { averageOfLastNums } from "../helpers/statsAlgo";
-// import { useState } from "react";
 
 interface StatsTableProps {
   times: number[];
 }
 const StatsTable = ({ times }: StatsTableProps) => {
-  // const [page, setPage] = useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setRowsPerPage(+event.target.value);
-  //   setPage(0);
-  // };
-
   return (
-    <TableContainer className={css.table} component={Paper}>
+    <TableContainer
+      className={css.table}
+      component={Paper}
+    >
       <Table stickyHeader size="small">
         <TableHead>
           <TableRow>

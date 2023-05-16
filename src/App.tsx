@@ -5,6 +5,7 @@ import { Box, Card, SelectChangeEvent, Typography } from "@mui/material";
 // @ts-ignore
 import ScrambleGenerator from "./helpers/ScrambleGenerator.js";
 import Stats from "./components/Stats.js";
+import TimeChart from "./components/TimeChart.js";
 
 function App() {
   const [times, setTimes] = useState<number[]>([]);
@@ -56,6 +57,7 @@ function App() {
         <Timer setTimes={setTimes} times={times} />
         <Stats times={times} />
       </Box>
+      <TimeChart times={times} />
     </Box>
   );
 }

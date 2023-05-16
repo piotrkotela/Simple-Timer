@@ -46,7 +46,7 @@ const Timer = ({ setTimes, times }: TimerProps) => {
 
   const currentAo5 = averageOfLastNums(times, 5, times.length - 5);
   const currentAo12 = averageOfLastNums(times, 12, times.length - 12);
-  const bestTime = times.length> 0 ? Math.max(...times)  : '-';
+  const bestTime = times.length> 0 ? Math.min(...times)  : '-';
   const currentSessionAo = times.length> 0 ? averageOfLastNums(times, times.length, 0) : "-";
 
   return (
