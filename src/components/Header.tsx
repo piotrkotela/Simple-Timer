@@ -24,7 +24,7 @@ const Header = ({
 }: HeaderProps) => {
   const modes = ["3x3x3", "2x2x2"];
   return (
-    <Box sx={{display: "flex", gap: 5, width: "fit-content"}}>
+    <Box sx={{ display: "flex", gap: 5, width: "fit-content" }}>
       <FormControl className={css.sessionSelect}>
         <InputLabel id="session">Session</InputLabel>
         <Select

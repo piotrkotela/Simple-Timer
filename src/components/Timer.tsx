@@ -2,15 +2,15 @@ import { useState, useEffect } from "react";
 import formatTime from "../helpers/formatTime";
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
-import css from './Timer.module.css';
+import css from "./Timer.module.css";
+import { averageOfLastNums } from "../helpers/statsAlgo";
 
 interface TimerProps {
   setTimes: Function;
-  currentAo5?: string;
-  currentAo12?: string;
+  times: number[];
 }
 
-const Timer = ({ setTimes, currentAo5, currentAo12 }: TimerProps) => {
+const Timer = ({ setTimes, times }: TimerProps) => {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerValue, setTimerValue] = useState(0);
 
@@ -25,7 +25,7 @@ const Timer = ({ setTimes, currentAo5, currentAo12 }: TimerProps) => {
     }
 
     if (!timerStarted && timerValue > 0) {
-      setTimes((prevTimes: any) => [formatTime(timerValue), ...prevTimes]);
+      setTimes((prevTimes: any) => [+formatTime(timerValue), ...prevTimes]);
     }
 
     return () => {
@@ -44,16 +44,28 @@ const Timer = ({ setTimes, currentAo5, currentAo12 }: TimerProps) => {
     };
   }, []);
 
+  const currentAo5 = averageOfLastNums(times, 5, times.length - 5);
+  const currentAo12 = averageOfLastNums(times, 12, times.length - 12);
+  const bestTime = times.length> 0 ? Math.max(...times)  : '-';
+  const currentSessionAo = times.length> 0 ? averageOfLastNums(times, times.length, 0) : "-";
+
   return (
     <Card className={css.timerCard}>
       <Typography variant="h1" component="h2">
         {formatTime(timerValue)}
       </Typography>
-      <Typography variant="h4" component="h2">
-        {currentAo5 ? `ao5: ${currentAo5}` : "ao5: -"}
+      <Typography variant="h5" component="h2">
+        {`ao5: ${currentAo5}`}
       </Typography>
-      <Typography variant="h4" component="h2">
-      {currentAo12 ? `ao12: ${currentAo12}` : "ao12: -"}
+      <Typography variant="h5" component="h2">
+        {`ao12: ${currentAo12}`}
+      </Typography>
+      <br/>
+      <Typography variant="h5" component="h2">
+        {`best:  ${bestTime}`}
+      </Typography>
+      <Typography variant="h5" component="h2">
+        {`session ao: ${currentSessionAo}`}
       </Typography>
     </Card>
   );

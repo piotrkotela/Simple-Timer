@@ -5,23 +5,30 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import css from './Stats.module.css';
-import { avgOfLastNums } from "../helpers/statsAlgo";
-
+import css from "./Stats.module.css";
+import { averageOfLastNums } from "../helpers/statsAlgo";
+// import { useState } from "react";
 
 interface StatsTableProps {
-  times: string[];
+  times: number[];
 }
 const StatsTable = ({ times }: StatsTableProps) => {
+  // const [page, setPage] = useState(0);
+  // const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setRowsPerPage(+event.target.value);
+  //   setPage(0);
+  // };
+
   return (
-    <TableContainer className={css.table}  component={Paper}>
-      <Table sx={{ minWidth: 300 }} stickyHeader size="small" aria-label="a dense table">
+    <TableContainer className={css.table} component={Paper}>
+      <Table stickyHeader size="small">
         <TableHead>
           <TableRow>
-            <TableCell width={20}>No.</TableCell>
-            <TableCell width={20}>Time</TableCell>
-            <TableCell width={20}>ao5</TableCell>
-            <TableCell width={20}>ao12</TableCell>
+            <TableCell>no.</TableCell>
+            <TableCell>time</TableCell>
+            <TableCell>ao5</TableCell>
+            <TableCell>ao12</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,10 +44,10 @@ const StatsTable = ({ times }: StatsTableProps) => {
                 {time}
               </TableCell>
               <TableCell component="th" scope="row">
-                {times.length < 5 ? "-" : avgOfLastNums(times, 5)}
+                {averageOfLastNums(times, 5, idx)}
               </TableCell>
               <TableCell component="th" scope="row">
-                {times.length < 5 ? "-" : avgOfLastNums(times, 12)}
+                {averageOfLastNums(times, 12, idx)}
               </TableCell>
             </TableRow>
           ))}

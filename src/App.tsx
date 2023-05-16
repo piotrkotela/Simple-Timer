@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Timer from "./components/Timer";
 import { Box, Card, SelectChangeEvent, Typography } from "@mui/material";
 // @ts-ignore
 import ScrambleGenerator from "./helpers/ScrambleGenerator.js";
 import Stats from "./components/Stats.js";
-import { avgOfLastNums } from "./helpers/statsAlgo.js";
 
 function App() {
-  const [times, setTimes] = useState<string[]>([]);
+  const [times, setTimes] = useState<number[]>([]);
   const [timerSession, setTimerSession] = useState("1");
   const [mode, setMode] = useState("3x3x3");
+  const [scramble, setScramble] = useState(ScrambleGenerator["3x3x3"]());
+
+  useEffect(() => {
+    setScramble(ScrambleGenerator[mode]());
+  }, [mode]);
 
   const handleSetTimerSession = (event: SelectChangeEvent) => {
     setTimerSession(event.target.value);
@@ -24,7 +28,7 @@ function App() {
     <Box
       sx={{
         margin: "0 auto",
-        width: "800px",
+        width: "1000px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -36,15 +40,22 @@ function App() {
         sessionSelectHandler={handleSetTimerSession}
         modeSelectHandler={handleSetMode}
       />
-      <Card style={{ padding: 20, width: "fit-content" }}>
-        <Typography>{ScrambleGenerator[mode]()}</Typography>
+      <Card style={{ width: "100%", margin: "30px 0" }}>
+        <Typography style={{ padding: 15 }}>
+          <b>Scramble: </b>
+          {scramble}
+        </Typography>
       </Card>
-      <Timer
-        setTimes={setTimes}
-        currentAo5={avgOfLastNums(times, 5)}
-        currentAo12={avgOfLastNums(times, 12)}
-      />
-      <Stats times={times} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          padding: "20px 0",
+        }}
+      >
+        <Timer setTimes={setTimes} times={times} />
+        <Stats times={times} />
+      </Box>
     </Box>
   );
 }
