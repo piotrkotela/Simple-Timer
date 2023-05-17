@@ -14,9 +14,7 @@ import {
 import css from "./App.module.css";
 
 function App() {
-  const [times, setTimes] = useState<number[]>(
-    loadSessionsFromLocalStorage()[0].times
-  );
+  const [times, setTimes] = useState<number[]>(loadSessionsFromLocalStorage()[0].times);
   const [timerSession, setTimerSession] = useState<string>("1");
   const [mode, setMode] = useState<MODES>(MODES["3x3x3"]);
   const [scramble, setScramble] = useState<string>(scrambleGenerator[MODES["3x3x3"]]());
