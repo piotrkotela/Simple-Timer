@@ -12,7 +12,7 @@ export function loadSessionsFromLocalStorage(): Session[] {
   if (sessionString) {
     return JSON.parse(sessionString);
   } else {
-    return [];
+    return [{times: []}];
   }
 }
 
