@@ -2,60 +2,74 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Timer from "./components/Timer";
 import { Box, Card, SelectChangeEvent, Typography } from "@mui/material";
-// @ts-ignore
-import ScrambleGenerator from "./helpers/ScrambleGenerator.js";
-import Stats from "./components/Stats.js";
+import scrambleGenerator, { MODES } from "./helpers/ScrambleGenerator.ts";
+import Stats from "./components/StatsTable.js";
 import TimeChart from "./components/TimeChart.js";
+import {
+  Session,
+  initialSessions,
+  loadSessionsFromLocalStorage,
+  saveSessionsToLocalStorage,
+} from "./helpers/SessionHelpers.js";
+import css from "./App.module.css";
 
 function App() {
-  const [times, setTimes] = useState<number[]>([]);
-  const [timerSession, setTimerSession] = useState("1");
-  const [mode, setMode] = useState("3x3x3");
-  const [scramble, setScramble] = useState(ScrambleGenerator["3x3x3"]());
+  const [times, setTimes] = useState<number[]>(
+    loadSessionsFromLocalStorage()[0].times
+  );
+  const [timerSession, setTimerSession] = useState<string>("1");
+  const [mode, setMode] = useState<MODES>(MODES["3x3x3"]);
+  const [scramble, setScramble] = useState<string>(scrambleGenerator[MODES["3x3x3"]]());
 
   useEffect(() => {
-    setScramble(ScrambleGenerator[mode]());
-  }, [mode]);
+    if (!localStorage.getItem("sessions")) {
+      saveSessionsToLocalStorage(initialSessions);
+    }
+  }, []);
+
+  useEffect(() => {
+    setTimes(loadSessionsFromLocalStorage()[+timerSession - 1].times);
+  }, [timerSession]);
+
+  useEffect(() => {
+    const sessions = loadSessionsFromLocalStorage();
+    if (sessions.length === 0) {
+      return;
+    }
+    const updatedSession: Session = { times: times };
+    sessions[+timerSession - 1] = updatedSession;
+    saveSessionsToLocalStorage(sessions);
+  }, [times, timerSession]);
+
+  useEffect(() => {
+    setScramble(scrambleGenerator[mode]());
+  }, [mode, times]);
 
   const handleSetTimerSession = (event: SelectChangeEvent) => {
     setTimerSession(event.target.value);
   };
 
   const handleSetMode = (event: SelectChangeEvent) => {
-    setMode(event.target.value);
+    setMode(event.target.value as MODES);
   };
 
   return (
-    <Box
-      sx={{
-        margin: "0 auto",
-        width: "1000px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
+    <Box className={css.appContainer}>
       <Header
         timerSessionValue={timerSession}
         modeValue={mode}
         sessionSelectHandler={handleSetTimerSession}
         modeSelectHandler={handleSetMode}
       />
-      <Card style={{ width: "100%", margin: "30px 0" }}>
-        <Typography style={{ padding: 15 }}>
+      <Card className={css.scrambleContainer}>
+        <Typography className={css.scramble}>
           <b>Scramble: </b>
           {scramble}
         </Typography>
       </Card>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          padding: "20px 0",
-        }}
-      >
+      <Box className={css.timerAndStats}>
         <Timer setTimes={setTimes} times={times} />
-        <Stats times={times} />
+        <Stats times={times} timerSession={timerSession} setTimes={setTimes} />
       </Box>
       <TimeChart times={times} />
     </Box>

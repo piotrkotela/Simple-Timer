@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 
 import css from "./Header.module.css";
+import { MODES } from "../helpers/ScrambleGenerator";
 
 interface HeaderProps {
   timerSessionValue: string;
@@ -22,20 +23,18 @@ const Header = ({
   sessionSelectHandler,
   modeSelectHandler,
 }: HeaderProps) => {
-  const modes = ["3x3x3", "2x2x2"];
   return (
-    <Box sx={{ display: "flex", gap: 5, width: "fit-content" }}>
+    <Box className={css.headerContainer}>
       <FormControl className={css.sessionSelect}>
         <InputLabel id="session">Session</InputLabel>
         <Select
-          tabIndex={-1}
           labelId="session"
           value={timerSessionValue}
           label="Session"
           onChange={sessionSelectHandler}
         >
-          {[...Array(10).keys()].map((sessionNumber) => (
-            <MenuItem value={(sessionNumber + 1).toString()}>
+          {[...Array(10).keys()].map((sessionNumber, idx) => (
+            <MenuItem key={idx} value={(sessionNumber + 1).toString()}>
               {sessionNumber + 1}
             </MenuItem>
           ))}
@@ -44,13 +43,15 @@ const Header = ({
       <FormControl>
         <InputLabel id="modes">Mode</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
+          labelId="modes"
           value={modeValue}
           label="Mode"
           onChange={modeSelectHandler}
         >
-          {modes.map((el) => (
-            <MenuItem value={el}>{el}</MenuItem>
+          {Object.keys(MODES).map((mode) => (
+            <MenuItem key={mode} value={mode}>
+              {mode}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

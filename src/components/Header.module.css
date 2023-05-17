@@ -1,8 +1,9 @@
 .headerContainer {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  gap: 30px;
+  width: fit-content;
 }
 
 .sessionSelect {
-    width: 100px;
+  width: 100px;
 }

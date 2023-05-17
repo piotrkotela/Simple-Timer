@@ -13,9 +13,8 @@ interface TimeChartProps {
 }
 
 const TimeChart = ({ times }: TimeChartProps) => {
-
   const chartData = {
-    labels: times.map((_, i) => times.length - i),
+    labels: times.map((_, i) => i + 1),
     datasets: [
       {
         label: "Time",
@@ -28,11 +27,7 @@ const TimeChart = ({ times }: TimeChartProps) => {
     ],
   };
 
-  return (
-    <div style={{margin: "0 auto"}} >
-      <Line width={1000} height={200} data={chartData} />
-    </div>
-  );
+  return <Line width={1000} height={200} data={chartData} />;
 };
 
 export default TimeChart;

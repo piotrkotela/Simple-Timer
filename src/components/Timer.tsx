@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import formatTime from "../helpers/formatTime";
+
 import Typography from "@mui/material/Typography";
 import { Card } from "@mui/material";
 import css from "./Timer.module.css";
-import { averageOfLastNums } from "../helpers/statsAlgo";
+import { averageOfLastNums, formatTime } from "../helpers/HelperFunctions";
 
 interface TimerProps {
-  setTimes: Function;
+  setTimes: React.Dispatch<React.SetStateAction<number[]>>;
   times: number[];
 }
 
@@ -25,16 +25,18 @@ const Timer = ({ setTimes, times }: TimerProps) => {
     }
 
     if (!timerStarted && timerValue > 0) {
-      setTimes((prevTimes: any) => [+formatTime(timerValue), ...prevTimes]);
+      setTimes((prevTimes: number[]) => [...prevTimes, +formatTime(timerValue)]);
     }
 
     return () => {
       clearInterval(intervalId);
     };
-  }, [timerStarted]);
+  }, [timerStarted, setTimes]);
 
-  const handleKeyUp = () => {
-    setTimerStarted((prevState) => !prevState);
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === " ") {
+      setTimerStarted((prevState) => !prevState);
+    }
   };
 
   useEffect(() => {
@@ -46,8 +48,9 @@ const Timer = ({ setTimes, times }: TimerProps) => {
 
   const currentAo5 = averageOfLastNums(times, 5, times.length - 5);
   const currentAo12 = averageOfLastNums(times, 12, times.length - 12);
-  const bestTime = times.length> 0 ? Math.min(...times)  : '-';
-  const currentSessionAo = times.length> 0 ? averageOfLastNums(times, times.length, 0) : "-";
+  const bestTime = times.length > 0 ? Math.min(...times) : "-";
+  const currentSessionAo =
+    times.length > 0 ? averageOfLastNums(times, times.length, 0) : "-";
 
   return (
     <Card className={css.timerCard}>
@@ -60,7 +63,7 @@ const Timer = ({ setTimes, times }: TimerProps) => {
       <Typography variant="h5" component="h2">
         {`ao12: ${currentAo12}`}
       </Typography>
-      <br/>
+      <br />
       <Typography variant="h5" component="h2">
         {`best:  ${bestTime}`}
       </Typography>
