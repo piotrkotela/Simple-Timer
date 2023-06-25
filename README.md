@@ -1,6 +1,6 @@
 # Simple Timer
 
-Simple timer is a timer used for speedcubing that has a simple modern looking design. Built in React and Typescript.
+Simple timer is a timer used for speedcubing that has a simple modern looking design. Built in React and Typescript. You can use the latest version [here](https://simpletimer.web.app/)
 
 ## Local development
 
